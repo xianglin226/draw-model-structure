@@ -6,9 +6,8 @@ AI skill with scripts to build clear and editable model architecture diagram jus
 
 ## Requirements
 
-- Python 3.9+ (no third-party Python packages needed — only the standard
-  library).
-- The Graphviz `dot` binary on `PATH`.
+- Python 3.9+
+- The Graphviz
 
 ---
 
