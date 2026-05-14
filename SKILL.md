@@ -206,12 +206,16 @@ When defining a spec, follow these conventions so the figure reads well:
 
 ## Reference examples
 
-The repository ships with two complete example specs the agent can copy and adapt:
+The repository ships with four complete example specs the agent can copy and adapt:
 
-- `examples/transformer_spec.py` — a minimal Transformer encoder, `Block`-only, good starting point for a stack-of-layers architecture.
+- `examples/transformer_spec.py` — a minimal Transformer encoder, `Block`-only. Good starting point for a stack-of-layers architecture.
 - `examples/matrix_io_spec.py` — a set-attention imputer with `Matrix` I/O, support/query row groups, missingness masks, and a nested encoder/decoder backbone. Good starting point for any model with structured tensor inputs/outputs.
+- `examples/gears_spec.py` — GEARS, a dual-GNN perturbation response model. Good starting point for graph-based architectures and shows how to register a custom `kind` (`gnn`) via the `PALETTE` export.
+- `examples/biolord_spec.py` — biolord, a disentangled attribute-aware autoencoder with parallel latent branches that merge into a concatenation node. Good starting point for showing parallel encoder branches via `flow=False`.
 
-Render either at any depth with:
+Pre-rendered depth-3 SVGs for the last two live in `examples/figures/` (`gears_d3.svg`, `biolord_d3.svg`); the README embeds them as a gallery.
+
+Render any spec at any depth with:
 
 ```bash
 python scripts/render_model.py --spec examples/transformer_spec.py \
@@ -219,6 +223,12 @@ python scripts/render_model.py --spec examples/transformer_spec.py \
 
 python scripts/render_model.py --spec examples/matrix_io_spec.py \
     --depth 3 --out plots/matrix_io_d3.svg
+
+python scripts/render_model.py --spec examples/gears_spec.py \
+    --depth 3 --out plots/gears_d3.svg
+
+python scripts/render_model.py --spec examples/biolord_spec.py \
+    --depth 3 --out plots/biolord_d3.svg
 ```
 
 ## Anti-patterns
@@ -235,6 +245,9 @@ python scripts/render_model.py --spec examples/matrix_io_spec.py \
 | `scripts/render_model.py` | Generic renderer + CLI. Exports `Block` and `Matrix` for spec files to import. |
 | `examples/transformer_spec.py` | Reference spec: minimal Transformer encoder. Copy and edit when defining your own. |
 | `examples/matrix_io_spec.py` | Reference spec: matrix-shape Inputs / Outputs with support/query row groups and a nested encoder/decoder. |
+| `examples/gears_spec.py` | Reference spec: GEARS dual-GNN perturbation response model; shows `PALETTE` export for a custom `gnn` kind. |
+| `examples/biolord_spec.py` | Reference spec: biolord disentangled autoencoder; shows parallel encoder branches via `flow=False`. |
+| `examples/figures/` | Pre-rendered depth-3 SVGs (`gears_d3.svg`, `biolord_d3.svg`) embedded in the README gallery. |
 | `README.md` | Library-style usage and CLI reference (also useful when invoking the tool by hand). |
 
 ## Recommended agent workflow
