@@ -104,6 +104,47 @@ Illustrator/Inkscape for further editing.
 
 ---
 
+## Gallery
+
+Two real-world example specs live in `examples/`. Both are
+hand-curated diagrams of published single-cell models, rendered at
+`--depth 3` so each module is broken down one level. Source specs:
+[`examples/gears_spec.py`](examples/gears_spec.py) and
+[`examples/biolord_spec.py`](examples/biolord_spec.py).
+
+### GEARS — graph-enhanced perturbation response model
+
+Two graph encoders (a co-expression GNN over genes and a GO-similarity
+GNN over perturbations) feed a gene-specific decoder; the control
+expression is added back at the end as a residual.
+
+![GEARS architecture (depth 3)](examples/figures/gears_d3.svg)
+
+Re-render with:
+
+```bash
+python scripts/render_model.py --spec examples/gears_spec.py \
+    --depth 3 --out plots/gears_d3.svg
+```
+
+### biolord — disentangled attribute-aware autoencoder
+
+A composite latent disentangles per-sample "unknown" variation from
+known categorical and ordered attributes; the decoder maps the
+concatenated latent back to a Gaussian / NB / Poisson gene-expression
+distribution.
+
+![biolord architecture (depth 3)](examples/figures/biolord_d3.svg)
+
+Re-render with:
+
+```bash
+python scripts/render_model.py --spec examples/biolord_spec.py \
+    --depth 3 --out plots/biolord_d3.svg
+```
+
+---
+
 ## Writing a spec file
 
 A spec is a plain Python module that exports a top-level variable named
@@ -381,7 +422,12 @@ draw-model-structure/
 │   └── render_model.py        # Generic renderer + CLI; exports Block and Matrix
 └── examples/
     ├── transformer_spec.py    # Minimal Transformer example
-    └── matrix_io_spec.py      # Matrix I/O + row groups + nested encoder/decoder
+    ├── matrix_io_spec.py      # Matrix I/O + row groups + nested encoder/decoder
+    ├── gears_spec.py          # GEARS — dual-GNN perturbation response model
+    ├── biolord_spec.py        # biolord — disentangled attribute-aware autoencoder
+    └── figures/
+        ├── gears_d3.svg       # Pre-rendered GEARS depth-3 diagram (used in README)
+        └── biolord_d3.svg     # Pre-rendered biolord depth-3 diagram (used in README)
 ```
 
 ---
