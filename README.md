@@ -1,6 +1,6 @@
 # draw-model-structure
 
-AI skill and scripts to build clear and editable model architecture diagram easily just from the model codes.
+AI skill with scripts to build clear and editable model architecture diagram just from the model codes.
 
 ---
 
