@@ -7,7 +7,7 @@ AI skill with scripts to build clear and editable model architecture diagram jus
 ## Requirements
 
 - Python 3.9+
-- The Graphviz
+- Graphviz
 
 ---
 
@@ -26,7 +26,7 @@ expression is added back at the end as a residual.
 ![GEARS architecture (depth 3)](examples/figures/gears_d3.svg)
 
 
-### biolord — disentangled attribute-aware autoencoder
+### Biolord — disentangled attribute-aware autoencoder
 
 A composite latent disentangles per-sample "unknown" variation from
 known categorical and ordered attributes; the decoder maps the
