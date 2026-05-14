@@ -326,11 +326,57 @@ When defining a spec, follow these conventions so the figure reads well:
 
 ---
 
+## Use as an AI agent skill
+
+This repo doubles as an [agent skill](https://docs.cursor.com/agents/skills)
+that an AI coding agent (Cursor, Claude Code, etc.) can read and follow on
+its own to draw model diagrams for you. The skill specification lives in
+[`SKILL.md`](SKILL.md) — it has YAML frontmatter (`name`, `description`)
+plus agent-oriented usage guidance, and points the agent at
+`scripts/render_model.py` and the bundled `examples/`.
+
+### Install for Cursor
+
+```bash
+mkdir -p ~/.cursor/skills
+ln -s "$PWD/draw-model-structure" ~/.cursor/skills/draw-model-structure
+```
+
+### Install for Claude Code
+
+```bash
+mkdir -p ~/.claude/skills
+ln -s "$PWD/draw-model-structure" ~/.claude/skills/draw-model-structure
+```
+
+(Use `cp -r` instead of `ln -s` if your agent runtime doesn't follow
+symlinks.)
+
+Once installed, the agent will pick the skill up automatically when the
+user asks to "visualise / draw / diagram a model architecture", etc.
+The agent will then:
+
+1. Write a spec file for your architecture (using `Block` and, where
+   appropriate, `Matrix`).
+2. Run `scripts/render_model.py --spec <spec.py> --depth N --out ...`
+   to produce SVG/PNG output.
+3. Iterate on `--depth`, colour scheme, and per-block `kind` until the
+   figure reads well.
+
+You can still use the tool directly from the command line — both modes
+(library/CLI and agent skill) read the same `SKILL.md` / `README.md`
+content, just from different angles.
+
+---
+
 ## Repository layout
 
 ```
 draw-model-structure/
-├── README.md
+├── README.md                  # Library-style usage and CLI reference (this file)
+├── SKILL.md                   # Agent-skill specification (frontmatter + usage)
+├── LICENSE                    # MIT
+├── .gitignore
 ├── scripts/
 │   └── render_model.py        # Generic renderer + CLI; exports Block and Matrix
 └── examples/
