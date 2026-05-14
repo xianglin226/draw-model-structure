@@ -88,8 +88,8 @@ class Block:
         Optional *heatmap-matrix* rendering. When ``matrix_groups`` or
         ``matrix_row_groups`` is non-empty the block renders as a small
         heatmap instead of a coloured leaf box — useful for visualising
-        data tensors (e.g. cells × (genes + proteins) inputs with a
-        missing-value mask, or a fully imputed output matrix).
+        data tensors (e.g. samples × (modality A + modality B) inputs
+        with a missing-value mask, or a fully imputed output matrix).
 
         - ``matrix_groups`` is a flat list of column groups, each a
           tuple ``(label, ncols, missing_frac, colour)``. ``colour`` can
@@ -97,11 +97,10 @@ class Block:
           when every row uses the same observation pattern.
         - ``matrix_row_groups`` is a list of row groups, each a tuple
           ``(row_label, n_rows, [column_groups])``. Use this when rows
-          have different roles (e.g. ICL examples vs query) with
-          different missingness patterns. All row groups within a
-          matrix should have the same column structure (column counts
-          and labels); only ``missing_frac`` and ``colour`` should vary
-          per row group.
+          have different roles (e.g. support vs query) with different
+          missingness patterns. All row groups within a matrix should
+          have the same column structure (column counts and labels);
+          only ``missing_frac`` and ``colour`` should vary per row group.
         - ``matrix_seed`` controls the pseudo-random cell shades and
           missingness pattern; rendering is fully deterministic.
     """
@@ -137,26 +136,26 @@ def Matrix(name: str, kind: str = "io", *,
       ``groups`` is a list of ``(label, ncols, missing_frac, colour)``.
     - **Multiple row groups**: pass ``row_groups``, a list of
       ``(row_label, n_rows, column_groups)`` tuples. Use this when rows
-      have different roles (e.g. ICL examples vs query) with different
+      have different roles (e.g. support vs query) with different
       missingness patterns.
 
     Example (single row group)::
 
-        Matrix("Inputs\\ncells × features", kind="io", rows=5, groups=[
-            ("genes",    10, 0.0, "#9CB3E5"),
-            ("proteins",  8, 0.5, "#88B04B"),
+        Matrix("Inputs\\nsamples x features", kind="io", rows=5, groups=[
+            ("modality A", 10, 0.0, "#9CB3E5"),
+            ("modality B",  8, 0.5, "#88B04B"),
         ])
 
     Example (row groups)::
 
         Matrix("Inputs", kind="io", row_groups=[
-            ("ICL examples", 3, [
-                ("genes",    10, 0.0, "#9CB3E5"),
-                ("proteins",  8, 0.2, "#88B04B"),
+            ("support", 3, [
+                ("modality A", 10, 0.0, "#9CB3E5"),
+                ("modality B",  8, 0.2, "#88B04B"),
             ]),
             ("query", 2, [
-                ("genes",    10, 0.0, "#9CB3E5"),
-                ("proteins",  8, 0.8, "#88B04B"),
+                ("modality A", 10, 0.0, "#9CB3E5"),
+                ("modality B",  8, 0.8, "#88B04B"),
             ]),
         ])
     """
@@ -353,10 +352,10 @@ def _wrap_text(text: str, max_chars: int) -> str:
          (matches greedy wrap's line count).
       2. The longest line in the wrap is as short as possible, so two-line
          wraps split near the middle instead of leaving the second line
-         tiny. E.g. ``queries unseen proteins from gene context`` (41 ch,
-         max 40) wraps to ``queries unseen proteins`` / ``from gene
-         context`` instead of the greedy ``queries unseen proteins from
-         gene`` / ``context``.
+         tiny. E.g. ``cross-attention over the support set context`` (43
+         ch, max 40) wraps to ``cross-attention over the`` / ``support
+         set context`` instead of the greedy ``cross-attention over the
+         support`` / ``set context``.
     """
     out: list[str] = []
     for paragraph in text.split("\n"):
@@ -553,8 +552,8 @@ def _matrix_grid_only_html(cells: list[list[str]], cell_size: int) -> str:
 # group's pixel width. Slightly conservative on purpose so labels fit.
 _MATRIX_COL_LABEL_CHAR_PX = 5
 # Soft target for wrapping a row-group label across multiple lines so a
-# long phrase like "proteins with missing values" naturally breaks into
-# two roughly balanced lines.
+# long phrase like "modality B with missing values" naturally breaks
+# into two roughly balanced lines.
 _MATRIX_ROW_LABEL_WRAP = 16
 
 
