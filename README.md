@@ -14,9 +14,7 @@ AI skill and scripts to build clear and editable model architecture diagram easi
 
 ## Gallery
 
-Two real-world example specs live in `examples/`. Both are
-hand-curated diagrams of published single-cell models, rendered at
-`--depth 3` so each module is broken down one level. Source specs:
+Two real-world example specs live in `examples/`. Source specs:
 [`examples/gears_spec.py`](examples/gears_spec.py) and
 [`examples/biolord_spec.py`](examples/biolord_spec.py).
 
