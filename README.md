@@ -1,7 +1,7 @@
 # draw-model-structure
 
 AI skill with scripts to build clear and editable model architecture diagram just from the model codes.
-![](examples/cartoon,png)
+![](examples/cartoon.png)
 ---
 
 ## Requirements
