@@ -1,0 +1,32 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Editor / OS
+.DS_Store
+.idea/
+.vscode/
+*.swp
+
+# Rendered output
+plots/
+*.png
+*.svg
+*.pdf
+*.dot
+
+# Don't ignore example output checked in deliberately
+!examples/**/*.svg
+!examples/**/*.png
+
+# Environment
+.env
+.venv/
+venv/
+env/
+
+# Test/coverage
+.pytest_cache/
+.coverage
+htmlcov/
