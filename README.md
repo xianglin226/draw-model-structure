@@ -40,7 +40,9 @@ distribution.
 
 ## Quick start
 
-Point the agent to the code files with this skill for diagram generation.
+Point the agent to the code files with this skill for diagram generation.  
+Output SVG files for further editing.
+
 
 ---
 
